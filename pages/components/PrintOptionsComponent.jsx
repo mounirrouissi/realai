@@ -2,14 +2,12 @@
 import React, { useState } from 'react';
 import { Box, Typography, Link, IconButton } from '@mui/material';
 import { ArrowForwardIos, ArrowBackIos } from '@mui/icons-material';
-import { useSnapshot } from 'valtio';
+
 import state from '../../store'
-import { set } from 'valtio';
 import Header from "@/components/Header";
 import Loading from '@/components/Loading'
 import { useRouter } from "next/navigation";
-import { colorState } from '@/states/promptInputState';
-import { useSetRecoilState } from 'recoil';
+
 
 export default function PrintOptionsComponent() {
   const [loading,setLoading] = useState(false)
@@ -28,9 +26,6 @@ export default function PrintOptionsComponent() {
     console.log("selected color:", color);
     console.log("selected type:", type);
     localStorage.setItem('selectedColor', color);
-    localStorage.setItem('selectedType',type);
-     state.intro =true
-    // setColor(color);
     router.push(`/Home`);
     setLoading(true)
   };
