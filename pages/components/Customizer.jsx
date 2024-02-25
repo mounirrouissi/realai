@@ -34,6 +34,7 @@ const supabase = createClient("https://ygoywdggbolrtwuducox.supabase.co",
 
 
 const Customizer = () => {
+  
   const snap = useSnapshot(state);
   const router = useRouter()
   const [showAlert, setShowAlert] = useState(false);
@@ -74,6 +75,8 @@ const Customizer = () => {
   const [imageUrl,setImageUrl] = useState('');
 
   useEffect(() => {
+    console.log("inside customizer "+ snap.color)
+
    setImageUrl(localStorage.getItem('imageUrl') )
 
     console.log("imageUrl =" + imageUrl);

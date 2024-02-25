@@ -12,9 +12,22 @@ import state from './../../store';
 import Frame from './Frame';
 import  Hoodie  from './Hoodie';
 import { isMobile } from './../../config/helpers';
+import { useEffect, useState } from 'react';
 
-const CanvasModel = () => {
+const CanvasModel = ({color}) => {
   const snap = useSnapshot(state);
+   const [type, setType] = useState('Tshirt');
+
+useEffect(() => {
+   setType(localStorage.getItem('selectedType'));
+   
+
+  console.log("color="+color)
+})
+
+useEffect(() => {
+  state["type"] = type
+},[type])
 
 
 

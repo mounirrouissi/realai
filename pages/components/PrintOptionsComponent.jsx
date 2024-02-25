@@ -8,12 +8,13 @@ import { set } from 'valtio';
 import Header from "@/components/Header";
 import Loading from '@/components/Loading'
 import { useRouter } from "next/navigation";
+import { colorState } from '@/states/promptInputState';
+import { useSetRecoilState } from 'recoil';
 
 export default function PrintOptionsComponent() {
   const [loading,setLoading] = useState(false)
   const [selectedColorClothes, setSelectedColorClothes] = useState('#f3f4f6'); // Default color for Clothes
   const [colorIndexClothes, setColorIndexClothes] = useState(0); // Index to cycle through colors for Clothes
-const snap = useSnapshot(state); // Subscribe to state changes
   const [selectedColorPhones, setSelectedColorPhones] = useState('#f3f4f6'); // Default color for Phones
   const [colorIndexPhones, setColorIndexPhones] = useState(0); // Index to cycle through colors for Phones
   const router = useRouter();
@@ -26,8 +27,8 @@ const snap = useSnapshot(state); // Subscribe to state changes
   const handleColorSelect = (color, type) => {
     console.log("selected color:", color);
     console.log("selected type:", type);
-    state.selectedColor = color; // Update the state directly
-     state.selectedType = type; // Update the state directly
+    localStorage.setItem('selectedColor', color);
+    localStorage.setItem('selectedType',type);
      state.intro =true
     // setColor(color);
     router.push(`/Home`);
@@ -51,8 +52,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
       setSelectedColorPhones(colors[newIndex]);
     }
   };
-  const handleFameSelected = (direction) => {
-    state.selectedType = 'Frame'; // Update the state directly
+  const handleFameSelected = (type) => {
     router.push(`/Home`);
 
   }
@@ -60,28 +60,29 @@ const snap = useSnapshot(state); // Subscribe to state changes
   
 
 
-  // Function to render a row of three colors
-    // Function to render a row of three colors
-    const renderColorRow = (startIndex, type) => {
-      return colors.slice(startIndex, startIndex +   3).map((color, index) => (
-        <Box
-          key={index}
-          sx={{
-            backgroundColor: color,
-            width: '50px',
-            height: '50px',
-            borderRadius: '50%',
-            margin: '0   5px',
-            cursor: 'pointer',
-            transition: 'transform   0.3s',
-            '&:hover': {
-              transform: 'scale(1.1)',
-            },
-          }}
-          onClick={() => handleColorSelect(color, type)}
-        />
-      ));
-    };
+  // Function to render a row of three colors with improved UI
+  const renderColorRow = (startIndex, type) => {
+    return colors.slice(startIndex, startIndex +  3).map((color, index) => (
+      <Box
+        key={index}
+        sx={{
+          backgroundColor: color,
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          margin: '0  5px',
+          cursor: 'pointer',
+          transition: 'transform  0.3s',
+          '&:hover': {
+            transform: 'scale(1.1)',
+          },
+          // Highlight selected color
+          border: selectedColorClothes === color ? '2px solid #000' : 'none',
+        }}
+        onClick={() => handleColorSelect(color, type)}
+      />
+    ));
+  };
 
   return (
     <div className="">
@@ -150,23 +151,31 @@ const snap = useSnapshot(state); // Subscribe to state changes
           <Typography variant="subtitle1" sx={{ marginTop:   2, textAlign: 'center' }}>
             Choose a color
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:   5 }}>
-          <IconButton 
-  className="text-3xl sm:text-7xl"
-  onClick={() => handleColorChangePhones('prev')}
->
-  <ArrowBackIos />
-</IconButton>
-
-            <Box sx={{ display: 'flex', gap:   2 }}>
-              {renderColorRow(colorIndexPhones,'Tshirt')}
+      {/* Existing component structure... */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:  5 }}>
+            <IconButton
+              onClick={() => handleColorChangePhones('prev')}
+              sx={{
+                '&:hover': {
+                  backgroundColor: '#f5f5f5',
+                },
+              }}
+            >
+              <ArrowBackIos sx={{ fontSize: '2rem' }} />
+            </IconButton>
+            <Box sx={{ display: 'flex', gap:  2 }}>
+              {renderColorRow(colorIndexPhones, 'Tshirt')}
             </Box>
-              <IconButton
-    className="text-3xl sm:text-7xl" 
-    onClick={() => handleColorChangePhones('next')} 
-  >
-    <ArrowForwardIos />  
-  </IconButton>
+            <IconButton
+              onClick={() => handleColorChangePhones('next')}
+              sx={{
+                '&:hover': {
+                  backgroundColor: '#f5f5f5',
+                },
+              }}
+            >
+              <ArrowForwardIos sx={{ fontSize: '2rem' }} />
+            </IconButton>
           </Box>
         </Box>
         {/* hoodie Box */}
@@ -230,22 +239,37 @@ const snap = useSnapshot(state); // Subscribe to state changes
           <Typography variant="subtitle1" sx={{ marginTop:   2, textAlign: 'center' }}>
             Choose a color
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:   5 }}>
-            <IconButton onClick={() => handleColorChangeClothes('prev')}>
-              <ArrowBackIos />
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:  5 }}>
+            <IconButton
+              onClick={() => handleColorChangePhones('prev')}
+              sx={{
+                '&:hover': {
+                  backgroundColor: '#f5f5f5',
+                },
+              }}
+            >
+              <ArrowBackIos sx={{ fontSize: '2rem' }} />
             </IconButton>
-            <Box sx={{ display: 'flex', gap:   2 }}>
-              {renderColorRow(colorIndexClothes,'Hoodie')}
+            <Box sx={{ display: 'flex', gap:  2 }}>
+              {renderColorRow(colorIndexPhones, 'Hoodie')}
             </Box>
-            <IconButton onClick={() => handleColorChangeClothes('next')}>
-              <ArrowForwardIos />
+            <IconButton
+              onClick={() => handleColorChangePhones('next')}
+              sx={{
+                '&:hover': {
+                  backgroundColor: '#f5f5f5',
+                },
+              }}
+            >
+              <ArrowForwardIos sx={{ fontSize: '2rem' }} />
             </IconButton>
           </Box>
+       
         </Box>
       
          {/* frame Box */}
         <Box
-          onClick={() => {handleFameSelected()}}
+          onClick={() => {handleFameSelected('Frame')}}
 
           sx={{
             display: 'flex',
@@ -300,7 +324,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
                 color: '#ffffff',
               }}
             >
-              Clothes
+              Frame
             </Typography>
             
           </Link>

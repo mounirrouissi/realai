@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -7,6 +7,8 @@ import { Center, Decal, Text, useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import state from '../../store';
 import { isMobile } from './../../config/helpers';
+import { colorState } from "@/states/promptInputState";
+import { useRecoilState } from 'recoil';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
@@ -17,11 +19,26 @@ const Shirt = () => {
   const fullTexture = useTexture(snap.fullDecal);
 
   const meshRef = useRef();
+  // ... other code ...
 
+  const [color, setColor] = useState('#fff');
 
-  console.log("color: " + snap.color)
+  useEffect(() => {
+    // Read color from localStorage
+    const savedColor = localStorage.getItem('selectedColor');
+
+    console.log("saved color "+savedColor)
+    if (savedColor) {
+      setColor(savedColor);
+    }
+
+  }, []);
+
+  
+
   useFrame((state, delta) => {
-    easing.dampC(materials.lambert1.color, snap.color, 0.25, delta);
+    
+    easing.dampC(materials.lambert1.color, color, 0.25, delta);
 
       // update the color to the material
     meshRef.current.material.color = materials.lambert1.color;

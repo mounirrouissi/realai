@@ -64,6 +64,7 @@ function Prompt() {
 
 
 useEffect(() => {
+
   const savedDate = window.localStorage.getItem('date');
   const savedCounter = window.localStorage.getItem('counter');
   const today = new Date().toISOString().split('T')[0]; // Get today's date without time
@@ -183,7 +184,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
     // Check if selectedColor is not empty
 if (snap.selectedColor && snap.selectedType !== 'Frame') {
-  prompt += `, ${snap.selectedColor} flat background`;
+  prompt += `, ${snap.selectedColor} flat solid background`;
 }
 let size = "1024x1024";
 
@@ -262,7 +263,7 @@ if (snap.selectedType == 'Frame') {
       console.log('new counter '+ counter)
       // state.logoDecal = `https://production.print.mounirrouissi2.workers.dev/${keyPart}`;
       setIsGenerating(false);
-      router.push(`/Playground`);
+      router.push(`/Playground?color=${snap.color}`);
       // updateImages();
       // updateLastGenerated();
     //
