@@ -293,7 +293,7 @@ if (selectedType == 'Frame') {
     if (counter === 0)
       return (  
         <p className="animate-flip-down pt-2 pl-2 font-bold text-white drop-shadow-md animate-normal animate-duration-500 animate-once animate-ease-in-out">
-          ✨ Thank you for using AI Shop. Come back tomorrow for more 🪙
+          ✨ Thank you for using REAL AI. Come back tomorrow for more 🪙
           <span className="select-all font-light font-bold"></span>
         </p>
       );
