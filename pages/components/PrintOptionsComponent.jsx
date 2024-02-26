@@ -2,17 +2,18 @@
 import React, { useState } from 'react';
 import { Box, Typography, Link, IconButton } from '@mui/material';
 import { ArrowForwardIos, ArrowBackIos } from '@mui/icons-material';
-
+import { useSnapshot } from 'valtio';
 import state from '../../store'
+import { set } from 'valtio';
 import Header from "@/components/Header";
 import Loading from '@/components/Loading'
 import { useRouter } from "next/navigation";
-
 
 export default function PrintOptionsComponent() {
   const [loading,setLoading] = useState(false)
   const [selectedColorClothes, setSelectedColorClothes] = useState('#f3f4f6'); // Default color for Clothes
   const [colorIndexClothes, setColorIndexClothes] = useState(0); // Index to cycle through colors for Clothes
+const snap = useSnapshot(state); // Subscribe to state changes
   const [selectedColorPhones, setSelectedColorPhones] = useState('#f3f4f6'); // Default color for Phones
   const [colorIndexPhones, setColorIndexPhones] = useState(0); // Index to cycle through colors for Phones
   const router = useRouter();
@@ -25,10 +26,20 @@ export default function PrintOptionsComponent() {
   const handleColorSelect = (color, type) => {
     console.log("selected color:", color);
     console.log("selected type:", type);
+    state.color = color; // Update the state directly
     localStorage.setItem('selectedColor', color);
+    localStorage.setItem('selectedType',type);
+    state["type"] = type
+
+    state["selectedColor"] = color; // Update the state directly
+     state.selectedType = type; // Update the state directly
+     state.type = type; // Update the state directly
+     state.intro =true
+    // setColor(color);
     router.push(`/Home`);
     setLoading(true)
   };
+
 
   // Function to handle color change with arrows for Clothes
   const handleColorChangeClothes = (direction) => {
@@ -47,7 +58,8 @@ export default function PrintOptionsComponent() {
       setSelectedColorPhones(colors[newIndex]);
     }
   };
-  const handleFameSelected = (type) => {
+  const handleFameSelected = (direction) => {
+    state.selectedType = 'Frame'; // Update the state directly
     router.push(`/Home`);
 
   }
@@ -55,8 +67,10 @@ export default function PrintOptionsComponent() {
   
 
 
-  // Function to render a row of three colors with improved UI
-  const renderColorRow = (startIndex, type) => {
+  // Function to render a row of three colors
+    // Function to render a row of three colors
+   // Function to render a row of three colors with improved UI
+   const renderColorRow = (startIndex, type) => {
     return colors.slice(startIndex, startIndex +  3).map((color, index) => (
       <Box
         key={index}
@@ -92,8 +106,8 @@ export default function PrintOptionsComponent() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '70vh', // Adjust the height as needed
-            width:'50vh',
+            height: '75vh', // Adjust the height as needed
+            width:'55vh',
             m:   1,
             p:   1,
             backgroundColor: '#f3f4f6',
@@ -146,31 +160,24 @@ export default function PrintOptionsComponent() {
           <Typography variant="subtitle1" sx={{ marginTop:   2, textAlign: 'center' }}>
             Choose a color
           </Typography>
-      {/* Existing component structure... */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:  5 }}>
-            <IconButton
-              onClick={() => handleColorChangePhones('prev')}
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#f5f5f5',
-                },
-              }}
-            >
-              <ArrowBackIos sx={{ fontSize: '2rem' }} />
-            </IconButton>
-            <Box sx={{ display: 'flex', gap:  2 }}>
-              {renderColorRow(colorIndexPhones, 'Tshirt')}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',marginTop:3,  marginLeft:1,marginRight:1 }}>
+          <IconButton 
+  className="text-3xl sm:text-5xl"
+  onClick={() => handleColorChangePhones('prev')}
+>
+  <ArrowBackIos />
+</IconButton>
+
+
+            <Box sx={{ display: 'flex', gap:   2 }}>
+              {renderColorRow(colorIndexPhones,'Tshirt')}
             </Box>
             <IconButton
-              onClick={() => handleColorChangePhones('next')}
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#f5f5f5',
-                },
-              }}
-            >
-              <ArrowForwardIos sx={{ fontSize: '2rem' }} />
-            </IconButton>
+  className="text-3xl sm:text-5xl" 
+  onClick={() => handleColorChangePhones('next')} 
+>
+  <ArrowForwardIos />  
+</IconButton>
           </Box>
         </Box>
         {/* hoodie Box */}
@@ -180,8 +187,8 @@ export default function PrintOptionsComponent() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '70vh', // Adjust the height as needed
-            width:'50vh',
+            height: '75vh', // Adjust the height as needed
+            width:'55vh',
             m:   1,
             p:   1,
             backgroundColor: '#f3f4f6',
@@ -234,37 +241,22 @@ export default function PrintOptionsComponent() {
           <Typography variant="subtitle1" sx={{ marginTop:   2, textAlign: 'center' }}>
             Choose a color
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:  5 }}>
-            <IconButton
-              onClick={() => handleColorChangePhones('prev')}
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#f5f5f5',
-                },
-              }}
-            >
-              <ArrowBackIos sx={{ fontSize: '2rem' }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',marginTop:3,  marginLeft:1,marginRight:1 }}>
+            <IconButton onClick={() => handleColorChangeClothes('prev')}>
+              <ArrowBackIos   />
             </IconButton>
-            <Box sx={{ display: 'flex', gap:  2 }}>
-              {renderColorRow(colorIndexPhones, 'Hoodie')}
+            <Box sx={{ display: 'flex', gap:   2 }}>
+              {renderColorRow(colorIndexClothes,'Hoodie')}
             </Box>
-            <IconButton
-              onClick={() => handleColorChangePhones('next')}
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#f5f5f5',
-                },
-              }}
-            >
-              <ArrowForwardIos sx={{ fontSize: '2rem' }} />
+            <IconButton onClick={() => handleColorChangeClothes('next')}>
+              <ArrowForwardIos   />
             </IconButton>
           </Box>
-       
         </Box>
       
          {/* frame Box */}
         <Box
-          onClick={() => {handleFameSelected('Frame')}}
+          onClick={() => {handleFameSelected()}}
 
           sx={{
             display: 'flex',
@@ -319,7 +311,7 @@ export default function PrintOptionsComponent() {
                 color: '#ffffff',
               }}
             >
-              Frame
+              Clothes
             </Typography>
             
           </Link>

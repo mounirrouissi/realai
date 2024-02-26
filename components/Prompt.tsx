@@ -48,23 +48,20 @@ function Prompt() {
 
   const [savedCounter, setSavedCounter] = useState<string | null>(null);
   const [savedDate, setSavedDate] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useLocalStorage("Black");
+  const [selectedType, setSelectedType] = useLocalStorage("1024x1024");
+
+
   const [counter, setCounter] = useLocalStorage('counter', 5);
-
-  // Initialize state with value from localStorage or set to some default value
-// Initialize state with value from localStorage or set to some default value
-/* const [counter, setCounter] = useState<number | null>(() => {
-  // Try to get the counter value from localStorage
-  let savedCounter: string | null = null; // Initialize with null
-  if (typeof window !== "undefined")  
-   savedCounter = window.localStorage.getItem('counter');
-  // If there's a saved counter, parse it to an integer; otherwise, use   5 as the default
-  return savedCounter ? parseInt(savedCounter) :   5;
-}); */
-
 
 
 useEffect(() => {
-
+  const selectedColor=    localStorage.getItem('selectedColor');
+  const selectedType=    localStorage.getItem('selectedType');
+  setSelectedColor(selectedColor)
+  setSelectedType(selectedType)
+  console.log("selected color = " + selectedColor)
+  console.log("selected type = " + selectedType)
   const savedDate = window.localStorage.getItem('date');
   const savedCounter = window.localStorage.getItem('counter');
   const today = new Date().toISOString().split('T')[0]; // Get today's date without time
@@ -82,6 +79,21 @@ useEffect(() => {
     setCounter(counterValue);
   }
 }, []);
+
+useEffect(() => {
+  const date = window.localStorage.getItem('date');
+  const savedCounter = window.localStorage.getItem('counter')
+  setSavedCounter(savedCounter)
+  setCounter(savedCounter? parseInt(savedCounter) : 5);
+  setSavedDate(date);
+}, []);
+// Update localStorage whenever the counter changes
+  useEffect(() => {
+    console.log("counter =="+ counter)
+    if (counter) {
+      window.localStorage.setItem('counter', counter.toString());    }
+  }, [counter]);
+
 
 // ... rest of your component
 
@@ -109,20 +121,6 @@ const options = [
   { value: '20', label: 'Abstract' },
   // ... you can continue adding more styles as options
 ];
-
-useEffect(() => {
-  const date = window.localStorage.getItem('date');
-  const savedCounter = window.localStorage.getItem('counter')
-  setSavedCounter(savedCounter)
-  setCounter(savedCounter? parseInt(savedCounter) : 5);
-  setSavedDate(date);
-}, []);
-// Update localStorage whenever the counter changes
-  useEffect(() => {
-    console.log("counter =="+ counter)
-    if (counter) {
-      window.localStorage.setItem('counter', counter.toString());    }
-  }, [counter]);
 
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -183,12 +181,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         prompt = `${prompt}  ${label ? ',' + label + ' style' : ''}  `;
 
     // Check if selectedColor is not empty
-if (snap.selectedColor && snap.selectedType !== 'Frame') {
-  prompt += `, ${snap.selectedColor} flat solid background`;
+if (selectedColor && selectedType !== 'Frame') {
+  prompt += `,  ${selectedColor} ,flat, centered  background`;
 }
 let size = "1024x1024";
 
-if (snap.selectedType == 'Frame') {
+if (selectedType == 'Frame') {
  size = "1024x1792";
 } else {
  size = "1024x1024";  
@@ -214,7 +212,7 @@ if (snap.selectedType == 'Frame') {
       prediction = await res.json();
       console.log("response from upload:", prediction);
     } catch (error) {
-      toast.error("Unable to process the request.", {
+      toast.error("Unable to process the request. repeat please.", {
         id: notification,
       });
       // console.error("Error during image generation:", error);

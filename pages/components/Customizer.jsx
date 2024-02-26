@@ -515,7 +515,7 @@ const handleAlertMessaage = () =>{
 
         <motion.div
   key={"custom1"}
-  className="absolute z-20 top-0 right-0 mt-4 md:p-5"
+  className="fixed z-50 top-0 right-0 mt-4 md:p-5"
   {...fadeAnimation}
 >
   <CustomButton

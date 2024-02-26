@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -11,20 +11,28 @@ import { isMobile } from './../../config/helpers';
 
 
 
-
-
-
-
-
-
-
 const  Hoodie =(props)=> {
+
+  
     const snap = useSnapshot(state)
     //const logoTexture = useTexture(snap.logoDecal);
     const image =localStorage.getItem("imageUrl")
   const logoTexture = useTexture(image);
 
+  const [color, setColor] = useState('#fff');
 
+
+  
+  useEffect(() => {
+    // Read color from localStorage
+    const savedColor = localStorage.getItem('selectedColor');
+
+    console.log("saved color "+savedColor)
+    if (savedColor) {
+      setColor(savedColor);
+    }
+
+  }, []);
 
 
     useGLTF.preload('/hoodie2.glb')
@@ -36,7 +44,7 @@ const  Hoodie =(props)=> {
  useFrame((state, delta) => {
 
 
-     easing.dampC(materials['Hoodie main mat'].color, snap.color, 0.25, delta)
+     easing.dampC(materials['Hoodie main mat'].color, color, 0.25, delta)
     
 
     // materials.FABRIC_3_FRONT_1850.aoMapIntensity=0;
