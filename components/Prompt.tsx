@@ -54,14 +54,38 @@ function Prompt() {
 
   const [counter, setCounter] = useLocalStorage('counter', 5);
 
+// Encryption function to map counter values to letters
+function encryptCounter(counter: number) {
+  const counterMap: { [key: number]: string } = {
+    1: 'A',
+    2: 'B',
+    3: 'C',
+    4: 'D',
+    5: 'E',
+  };
+  return counterMap[counter] || 'A'; // Default to 'A' if counter is not in the map
+}
+ 
+function decryptCounter(encryptedCounter: string) {
+  const counterMap: { [key: string]: number } = {
+    'A':   1,
+    'B':   2,
+    'C':   3,
+    'D':   4,
+    'E':   5,
+  };
+  return counterMap[encryptedCounter] ||  1; // Default to  1 if encryptedCounter is not in the map
+}
+
+// ...
 
 useEffect(() => {
-  const selectedColor=    localStorage.getItem('selectedColor');
-  const selectedType=    localStorage.getItem('selectedType');
-  setSelectedColor(selectedColor)
-  setSelectedType(selectedType)
-  console.log("selected color = " + selectedColor)
-  console.log("selected type = " + selectedType)
+  const selectedColor = localStorage.getItem('selectedColor');
+  const selectedType = localStorage.getItem('selectedType');
+  setSelectedColor(selectedColor);
+  setSelectedType(selectedType);
+  console.log("selected color = " + selectedColor);
+  console.log("selected type = " + selectedType);
   const savedDate = window.localStorage.getItem('date');
   const savedCounter = window.localStorage.getItem('counter');
   const today = new Date().toISOString().split('T')[0]; // Get today's date without time
@@ -69,30 +93,32 @@ useEffect(() => {
 
   // Check if the saved date is different from today's date
   if (savedDate !== today) {
-    // Reset the counter to  10 and update the date in localStorage
+    // Reset the counter to  5 and update the date in localStorage
     window.localStorage.setItem('date', today);
-    window.localStorage.setItem('counter', '5');
+    window.localStorage.setItem('counter', encryptCounter(5)); // Encrypt the counter value
     setCounter(5);
   } else {
-    // Return the saved counter or  10 if there's no saved counter
-    const counterValue = savedCounter ? parseInt(savedCounter, 10) :  5; // Corrected base to  10
+    // Return the saved counter or  5 if there's no saved counter
+    const counterValue = savedCounter ? decryptCounter(savedCounter) :  5; // Decrypt the counter value
     setCounter(counterValue);
   }
 }, []);
 
 useEffect(() => {
   const date = window.localStorage.getItem('date');
-  const savedCounter = window.localStorage.getItem('counter')
-  setSavedCounter(savedCounter)
-  setCounter(savedCounter? parseInt(savedCounter) : 5);
+  const savedCounter = window.localStorage.getItem('counter');
+  setSavedCounter(savedCounter);
+  setCounter(savedCounter ? decryptCounter(savedCounter) :  5); // Decrypt the counter value
   setSavedDate(date);
 }, []);
+
 // Update localStorage whenever the counter changes
-  useEffect(() => {
-    console.log("counter =="+ counter)
-    if (counter) {
-      window.localStorage.setItem('counter', counter.toString());    }
-  }, [counter]);
+useEffect(() => {
+  console.log("counter ==" + counter);
+  if (counter) {
+    window.localStorage.setItem('counter', encryptCounter(counter)); // Encrypt the counter value
+  }
+}, [counter]);
 
 
 // ... rest of your component
@@ -121,6 +147,9 @@ const options = [
   { value: '20', label: 'Abstract' },
   // ... you can continue adding more styles as options
 ];
+
+
+
 
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
