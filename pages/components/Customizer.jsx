@@ -138,7 +138,7 @@ const handleAddToCart = () => {
   } else if (activeFilterTab === "Hoodie") {
     productPrice = 65;
   } else {
-    productPrice = 44; // Assuming this is the price for other items like "Frame"
+    productPrice = 49; // Assuming this is the price for other items like "Frame"
   }
 
  // Update total price state and save to local storage
@@ -585,7 +585,8 @@ const handleAlertMessaage = () =>{
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="absolute z-20 top-0 left-0 mt-4"
+            className="fixed z-50 top-0 left-0 mt-4 "
+
           >
             <div className="bg-red-500 text-white p-4 rounded shadow-lg">
            {activeFilterTab === "Tshirt" ? "TND 39" : (activeFilterTab === 'Hoodie') ? "TND 65": "TND 49"}

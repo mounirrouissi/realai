@@ -52,73 +52,56 @@ function Prompt() {
   const [selectedType, setSelectedType] = useLocalStorage("1024x1024");
 
 
-  const [counter, setCounter] = useLocalStorage('counter', 5);
+const [counter, setCounter] = useLocalStorage('counter', 5);
 
-// Encryption function to map counter values to letters
-function encryptCounter(counter: number) {
-  const counterMap: { [key: number]: string } = {
-    1: 'A',
-    2: 'B',
-    3: 'C',
-    4: 'D',
-    5: 'E',
-  };
-  return counterMap[counter] || 'A'; // Default to 'A' if counter is not in the map
-}
- 
-function decryptCounter(encryptedCounter: string) {
-  const counterMap: { [key: string]: number } = {
-    'A':   1,
-    'B':   2,
-    'C':   3,
-    'D':   4,
-    'E':   5,
-  };
-  return counterMap[encryptedCounter] ||  1; // Default to  1 if encryptedCounter is not in the map
-}
+// Initialize state with value from localStorage or set to some default value
+// Initialize state with value from localStorage or set to some default value
+/* const [counter, setCounter] = useState<number | null>(() => {
+// Try to get the counter value from localStorage
+let savedCounter: string | null = null; // Initialize with null
+if (typeof window !== "undefined")  
+ savedCounter = window.localStorage.getItem('counter');
+// If there's a saved counter, parse it to an integer; otherwise, use   5 as the default
+return savedCounter ? parseInt(savedCounter) :   5;
+}); */
 
-// ...
+
 
 useEffect(() => {
-  const selectedColor = localStorage.getItem('selectedColor');
-  const selectedType = localStorage.getItem('selectedType');
-  setSelectedColor(selectedColor);
-  setSelectedType(selectedType);
-  console.log("selected color = " + selectedColor);
-  console.log("selected type = " + selectedType);
-  const savedDate = window.localStorage.getItem('date');
-  const savedCounter = window.localStorage.getItem('counter');
-  const today = new Date().toISOString().split('T')[0]; // Get today's date without time
+
+const savedDate = window.localStorage.getItem('date');
+const savedCounter = window.localStorage.getItem('counter');
+const today = new Date().toISOString().split('T')[0]; // Get today's date without time
 
 
-  // Check if the saved date is different from today's date
-  if (savedDate !== today) {
-    // Reset the counter to  5 and update the date in localStorage
-    window.localStorage.setItem('date', today);
-    window.localStorage.setItem('counter', encryptCounter(5)); // Encrypt the counter value
-    setCounter(5);
-  } else {
-    // Return the saved counter or  5 if there's no saved counter
-    const counterValue = savedCounter ? decryptCounter(savedCounter) :  5; // Decrypt the counter value
-    setCounter(counterValue);
-  }
+// Check if the saved date is different from today's date
+if (savedDate !== today) {
+  // Reset the counter to  10 and update the date in localStorage
+  window.localStorage.setItem('date', today);
+  window.localStorage.setItem('counter', '5');
+  setCounter(5);
+} else {
+  // Return the saved counter or  10 if there's no saved counter
+  const counterValue = savedCounter ? parseInt(savedCounter, 10) :  5; // Corrected base to  10
+  setCounter(counterValue);
+}
 }, []);
+
 
 useEffect(() => {
   const date = window.localStorage.getItem('date');
-  const savedCounter = window.localStorage.getItem('counter');
-  setSavedCounter(savedCounter);
-  setCounter(savedCounter ? decryptCounter(savedCounter) :  5); // Decrypt the counter value
+  const savedCounter = window.localStorage.getItem('counter')
+  setSavedCounter(savedCounter)
+  setCounter(savedCounter? parseInt(savedCounter) : 5);
   setSavedDate(date);
 }, []);
-
 // Update localStorage whenever the counter changes
-useEffect(() => {
-  console.log("counter ==" + counter);
-  if (counter) {
-    window.localStorage.setItem('counter', encryptCounter(counter)); // Encrypt the counter value
-  }
-}, [counter]);
+  useEffect(() => {
+    console.log("counter =="+ counter)
+    if (counter) {
+      window.localStorage.setItem('counter', counter.toString());    }
+  }, [counter]);
+
 
 
 // ... rest of your component
@@ -211,7 +194,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
     // Check if selectedColor is not empty
 if (selectedColor && selectedType !== 'Frame') {
-  prompt += `,  ${selectedColor} ,flat, centered  background`;
+  prompt += `,  ${selectedColor} flat  background`;
 }
 let size = "1024x1024";
 
@@ -281,8 +264,10 @@ if (selectedType == 'Frame') {
       // setCounter((prevCounter : number | null) => prevCounter !== null && prevCounter > 0 ? prevCounter - 1 : prevCounter); 
       if (counter !== null && counter >  0) {
         const newCounter = counter -  1;
-        setCounter(newCounter);
-        window.localStorage.setItem('counter', newCounter.toString());
+       // const encryptedCounter = encryptCounter(newCounter);
+
+        // setCounter(encryptedCounter);
+        window.localStorage.setItem('counter', newCounter.toString());;
         console.log('new counter ' + newCounter);
       }
       
