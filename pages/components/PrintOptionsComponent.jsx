@@ -11,11 +11,11 @@ import { useRouter } from "next/navigation";
 
 export default function PrintOptionsComponent() {
   const [loading,setLoading] = useState(false)
-  const [selectedColorClothes, setSelectedColorClothes] = useState('#f3f4f6'); // Default color for Clothes
-  const [colorIndexClothes, setColorIndexClothes] = useState(0); // Index to cycle through colors for Clothes
+  const [selectedColorHoodie, setSelectedColorHoodie] = useState('#f3f4f6'); // Default color for Hoodie
+  const [colorIndexHoodie, setColorIndexHoodie] = useState(0); // Index to cycle through colors for Hoodie
 const snap = useSnapshot(state); // Subscribe to state changes
-  const [selectedColorPhones, setSelectedColorPhones] = useState('#f3f4f6'); // Default color for Phones
-  const [colorIndexPhones, setColorIndexPhones] = useState(0); // Index to cycle through colors for Phones
+  const [selectedColorTshirt, setSelectedColorTshirt] = useState('#f3f4f6'); // Default color for Tshirt
+  const [colorIndexTshirt, setColorIndexTshirt] = useState(0); // Index to cycle through colors for Tshirt
   const router = useRouter();
 
  
@@ -57,63 +57,50 @@ const colorNameMapping = {
   };
 
 
-  // Function to handle color change with arrows for Clothes
-  const handleColorChangeHoodie = (direction,type) => {
-    const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
-    const newIndex = direction === 'next' ? colorIndexClothes +  1 : colorIndexClothes -  1;
-    if (newIndex >=  0 && newIndex < colors.length) {
-      setColorIndexClothes(newIndex);
-      setSelectedColorClothes(colors[newIndex]);
-    }
-  };
-
-  // Function to handle color change with arrows for Phones
-  const handleColorChangeTshirt = (direction,type) => {
-    const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
-    const newIndex = direction === 'next' ? colorIndexClothes +  1 : colorIndexClothes -  1;
-    if (newIndex >=  0 && newIndex < colors.length) {
-      setColorIndexClothes(newIndex);
-      setSelectedColorClothes(colors[newIndex]);
-    }
-  };
-  const handleFameSelected = (direction) => {
-    state.selectedType = 'Frame'; // Update the state directly
-    router.push(`/Home`);
-
+ // Function to handle color change with arrows for Hoodie (Hoodie)
+const handleColorChangeHoodie = (direction) => {
+  const newIndex = direction === 'next' ? colorIndexHoodie +  1 : colorIndexHoodie -  1;
+  if (newIndex >=  0 && newIndex < HoodieColors.length) {
+    setColorIndexHoodie(newIndex);
+    setSelectedColorHoodie(HoodieColors[newIndex]);
   }
+};
 
-  
+// Function to handle color change with arrows for Tshirt (T-shirt)
+const handleColorChangeTshirt = (direction) => {
+  const newIndex = direction === 'next' ? colorIndexTshirt +  1 : colorIndexTshirt -  1;
+  if (newIndex >=  0 && newIndex < tshirtColors.length) {
+    setColorIndexTshirt(newIndex);
+    setSelectedColorTshirt(tshirtColors[newIndex]);
+  }
+};
 
-
-  // Function to render a row of three colors
-    // Function to render a row of three colors
-   // Function to render a row of three colors with improved UI
-   const renderColorRow = (startIndex, type) => {
-    const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
-    return colors.slice(startIndex, startIndex +  3).map((color, index) => (
-      <Box
-        key={index}
-        sx={{
-          backgroundColor: color,
-          width: '50px',
-          height: '50px',
-          borderRadius: '50%',
-          margin: '0  5px',
-          cursor: 'pointer',
-          transition: 'transform  0.3s',
-          '&:hover': {
-            transform: 'scale(1.1)',
-          },
-           // Highlight selected color
-        border: selectedColorClothes === color ? '2px solid #000' : 'none',
-        // Add a border or shadow to make the color stand out
-        boxShadow: '0  0  5px rgba(0,  0,  0,  0.2)',
-        }}
-        onClick={() => handleColorSelect(color, type)}
-      />
-    ));
-  };
-
+// Function to render a row of three colors
+const renderColorRow = (startIndex, type) => {
+  const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
+  const selectedColor = type === 'Hoodie' ? selectedColorHoodie : selectedColorTshirt;
+  const colorIndex = type === 'Hoodie' ? colorIndexHoodie : colorIndexTshirt;
+  return colors.slice(startIndex, startIndex +  3).map((color, index) => (
+    <Box
+      key={index}
+      sx={{
+        backgroundColor: color,
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        margin: '0  5px',
+        cursor: 'pointer',
+        transition: 'transform  0.3s',
+        '&:hover': {
+          transform: 'scale(1.1)',
+        },
+        // Highlight selected color
+        border: selectedColor === color ? '2px solid #000' : 'none',
+      }}
+      onClick={() => handleColorSelect(color, type)}
+    />
+  ));
+};
   return (
     <div className="">
     <Header />
@@ -184,18 +171,18 @@ const colorNameMapping = {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',marginTop:3,  marginLeft:1,marginRight:1 }}>
           <IconButton 
   className="text-3xl sm:text-5xl"
-  onClick={() => handleColorChangeTshirt('prev',"Tshirt")}
+  onClick={() => handleColorChangeTshirt('prev')}
 >
   <ArrowBackIos />
 </IconButton>
 
 
             <Box sx={{ display: 'flex', gap:   2 }}>
-              {renderColorRow(colorIndexPhones,'Tshirt')}
+              {renderColorRow(colorIndexTshirt,'Tshirt')}
             </Box>
             <IconButton
   className="text-3xl sm:text-5xl" 
-  onClick={() => handleColorChangeTshirt('next',"Tshirt")} 
+  onClick={() => handleColorChangeTshirt('next')}
 >
   <ArrowForwardIos />  
 </IconButton>
@@ -231,7 +218,7 @@ const colorNameMapping = {
               position: 'relative',
             }}
           >
-            <img src={'./img/hoodie-solid-color-clothing.png'} alt="Clothes Image" style={{ width: '100%', objectFit: 'cover' }} />
+            <img src={'./img/hoodie-solid-color-clothing.png'} alt="Hoodie Image" style={{ width: '100%', objectFit: 'cover' }} />
             <Box
               sx={{
                 position: 'absolute',
@@ -263,13 +250,18 @@ const colorNameMapping = {
             Choose a color
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',marginTop:3,  marginLeft:1,marginRight:1 }}>
-            <IconButton onClick={() => handleColorChangeHoodie('prev',"Hoodie")}>
+            <IconButton 
+              onClick={() => handleColorChangeHoodie('prev')}
+
+            >
               <ArrowBackIos   />
             </IconButton>
             <Box sx={{ display: 'flex', gap:   2 }}>
-              {renderColorRow(colorIndexClothes,'Hoodie')}
+              {renderColorRow(colorIndexHoodie,'Hoodie')}
             </Box>
-            <IconButton onClick={() => handleColorChangeHoodie('next',"Hoodie")}>
+            <IconButton 
+  onClick={() => handleColorChangeHoodie('next')}
+            >
               <ArrowForwardIos   />
             </IconButton>
           </Box>
@@ -307,7 +299,7 @@ const colorNameMapping = {
               position: 'relative',
             }}
           >
-            <img src={'./images/frame.jpg'} alt="Clothes Image" style={{ width: '100%', objectFit: 'cover' }} />
+            <img src={'./images/frame.jpg'} alt="Hoodie Image" style={{ width: '100%', objectFit: 'cover' }} />
             <Box
               sx={{
                 position: 'absolute',
@@ -346,13 +338,13 @@ const colorNameMapping = {
             Choose a color
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:   2 }}>
-            <IconButton onClick={() => handleColorChangeClothes('prev')}>
+            <IconButton onClick={() => handleColorChangeHoodie('prev')}>
               <ArrowBackIos />
             </IconButton>
             <Box sx={{ display: 'flex', gap:   2 }}>
-              {renderColorRow(colorIndexClothes,'Frame')}
+              {renderColorRow(colorIndexHoodie,'Frame')}
             </Box>
-            <IconButton onClick={() => handleColorChangeClothes('next')}>
+            <IconButton onClick={() => handleColorChangeHoodie('next')}>
               <ArrowForwardIos />
             </IconButton>
           </Box> */}

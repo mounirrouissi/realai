@@ -29,7 +29,7 @@ const regions = [
   
   const cities = {
     '1': [
-      { id: '', label: 'Ville1' },
+      { id: '', label: 'Ville1' },  
     
       // ... cities for Tunis
     ],  '2': [
