@@ -20,7 +20,7 @@ export default function Home() {
 
 <Prompt  />
       <Images />
-      <Testimony />
+      {/* <Testimony /> */}
       <FaqList/>
     </main>
   );

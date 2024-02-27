@@ -48,10 +48,8 @@ function Prompt() {
 
   const [savedCounter, setSavedCounter] = useState<string | null>(null);
   const [savedDate, setSavedDate] = useState<string | null>(null);
-  const [selectedColor, setSelectedColor] = useLocalStorage("Black");
+  const [selectedColor, setSelectedColor] = useLocalStorage("selectedColor");
   const [selectedType, setSelectedType] = useLocalStorage("1024x1024");
-
-
 const [counter, setCounter] = useLocalStorage('counter', 5);
 
 // Initialize state with value from localStorage or set to some default value
@@ -73,6 +71,8 @@ const savedDate = window.localStorage.getItem('date');
 const savedCounter = window.localStorage.getItem('counter');
 const today = new Date().toISOString().split('T')[0]; // Get today's date without time
 
+console.log("saved date"+savedDate)
+console.log("today "+today)
 
 // Check if the saved date is different from today's date
 if (savedDate !== today) {
@@ -103,7 +103,12 @@ useEffect(() => {
   }, [counter]);
 
 
+  const  userScrollPosition =()=>{
+ 
+    
 
+
+  }
 // ... rest of your component
 
 // Define your options for the dropdown menu
@@ -193,8 +198,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         prompt = `${prompt}  ${label ? ',' + label + ' style' : ''}  `;
 
     // Check if selectedColor is not empty
-if (selectedColor && selectedType !== 'Frame') {
-  prompt += `,  ${selectedColor} flat  background`;
+    console.log("selectedColor: ", snap.color);
+if (snap.color && selectedType !== 'Frame') {
+  prompt += `,  ${snap.color} flat  background`;
 }
 let size = "1024x1024";
 

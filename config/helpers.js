@@ -36,3 +36,5 @@ export const getContrastingColor = (color) => {
 export const isBreakpoint = typeof window !== 'undefined' && window.innerWidth <= 1260;
 export    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
 
+
+

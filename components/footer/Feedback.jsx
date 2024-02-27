@@ -8,12 +8,27 @@ const supabase = createClient("https://ygoywdggbolrtwuducox.supabase.co",
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlnb3l3ZGdnYm9scnR3dWR1Y294Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc4MDgyNTQsImV4cCI6MjAyMzM4NDI1NH0.RLoJRoMqJKdzuHrN2ZvBBYrzfRb73YeQJlAVEZjvGs4");
 
 const Feedback = ({ isOpenFeedbak, setOpenFeedback }) => {
+  const [scrollPoqition, setScrollPositon] = useState<number | undefined>(undefined);
   const [feedback, setFeedback] = useState({
     type: 'like',
     details: '',
     accept: false,
   });
 
+ useEffect(()=>{
+ if (typeof window !== 'undefined') {
+
+ window.addEventListener("scroll",()=>
+ {return setScrollPositon(window.scrollY);}
+ )
+ setScrollPositon(window.scrollY);
+ 
+}
+  return window.removeEventListener('scroll',()=>
+  {return setScrollPositon(window.scrollY);})
+
+ });
+ 
   useEffect(() => {
     console.log('isOpenFeedback: ', isOpenFeedbak);
   }, [isOpenFeedbak]); // Added isOpenFeedbak to the dependency array

@@ -18,20 +18,36 @@ const snap = useSnapshot(state); // Subscribe to state changes
   const [colorIndexPhones, setColorIndexPhones] = useState(0); // Index to cycle through colors for Phones
   const router = useRouter();
 
-  // const colors = ['#f3f4f6', '#e0e0e0', '#c0c0c0', '#a0a0a0', '#808080', '#000000']; // Example colors
+ 
 
-  const colors = ['black','white','blue','red','green', 'yellow', 'purple', 'pink']; // Add your colors here
+ 
+ // Define the two categories of colors
+ const HoodieColors = ["black", "#FFFFFF", "blue", "#D3D3D3", "brown", "#654321", "pink", "grey"];
+const tshirtColors =  ["gray", "white", "black", "red", "blue", "green", "yellow", "pink", "purple", "orange", "brown", "navy", "teal", "maroon", "beige"];
 
+
+
+const colorNameMapping = {
+  "#FFFFFF": "white",
+  "#D3D3D3": "light gray",
+  "#654321": "brown",
+  // Add other color mappings as needed
+};
   // Function to handle color selection
   const handleColorSelect = (color, type) => {
     console.log("selected color:", color);
     console.log("selected type:", type);
-    state.color = color; // Update the state directly
-    localStorage.setItem('selectedColor', color);
+    
+  // Use the color name from the mapping, or the color itself if no mapping exists
+  const colorName = colorNameMapping[color] || color;
+
+  console.log("selected color name:", colorName);
+  state.color = colorName; // Update the state directly
+  localStorage.setItem('selectedColor', colorName);
     localStorage.setItem('selectedType',type);
     state["type"] = type
 
-    state["selectedColor"] = color; // Update the state directly
+    state["selectedColor"] = colorName; // Update the state directly
      state.selectedType = type; // Update the state directly
      state.type = type; // Update the state directly
      state.intro =true
@@ -42,20 +58,22 @@ const snap = useSnapshot(state); // Subscribe to state changes
 
 
   // Function to handle color change with arrows for Clothes
-  const handleColorChangeClothes = (direction) => {
-    const newIndex = direction === 'next' ? colorIndexClothes +   1 : colorIndexClothes -   1;
-    if (newIndex >=   0 && newIndex < colors.length) {
+  const handleColorChangeHoodie = (direction,type) => {
+    const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
+    const newIndex = direction === 'next' ? colorIndexClothes +  1 : colorIndexClothes -  1;
+    if (newIndex >=  0 && newIndex < colors.length) {
       setColorIndexClothes(newIndex);
       setSelectedColorClothes(colors[newIndex]);
     }
   };
 
   // Function to handle color change with arrows for Phones
-  const handleColorChangePhones = (direction) => {
-    const newIndex = direction === 'next' ? colorIndexPhones +   1 : colorIndexPhones -   1;
-    if (newIndex >=   0 && newIndex < colors.length) {
-      setColorIndexPhones(newIndex);
-      setSelectedColorPhones(colors[newIndex]);
+  const handleColorChangeTshirt = (direction,type) => {
+    const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
+    const newIndex = direction === 'next' ? colorIndexClothes +  1 : colorIndexClothes -  1;
+    if (newIndex >=  0 && newIndex < colors.length) {
+      setColorIndexClothes(newIndex);
+      setSelectedColorClothes(colors[newIndex]);
     }
   };
   const handleFameSelected = (direction) => {
@@ -71,6 +89,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
     // Function to render a row of three colors
    // Function to render a row of three colors with improved UI
    const renderColorRow = (startIndex, type) => {
+    const colors = type === 'Hoodie' ? HoodieColors : tshirtColors;
     return colors.slice(startIndex, startIndex +  3).map((color, index) => (
       <Box
         key={index}
@@ -85,8 +104,10 @@ const snap = useSnapshot(state); // Subscribe to state changes
           '&:hover': {
             transform: 'scale(1.1)',
           },
-          // Highlight selected color
-          border: selectedColorClothes === color ? '2px solid #000' : 'none',
+           // Highlight selected color
+        border: selectedColorClothes === color ? '2px solid #000' : 'none',
+        // Add a border or shadow to make the color stand out
+        boxShadow: '0  0  5px rgba(0,  0,  0,  0.2)',
         }}
         onClick={() => handleColorSelect(color, type)}
       />
@@ -163,7 +184,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',marginTop:3,  marginLeft:1,marginRight:1 }}>
           <IconButton 
   className="text-3xl sm:text-5xl"
-  onClick={() => handleColorChangePhones('prev')}
+  onClick={() => handleColorChangeTshirt('prev',"Tshirt")}
 >
   <ArrowBackIos />
 </IconButton>
@@ -174,7 +195,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
             </Box>
             <IconButton
   className="text-3xl sm:text-5xl" 
-  onClick={() => handleColorChangePhones('next')} 
+  onClick={() => handleColorChangeTshirt('next',"Tshirt")} 
 >
   <ArrowForwardIos />  
 </IconButton>
@@ -242,13 +263,13 @@ const snap = useSnapshot(state); // Subscribe to state changes
             Choose a color
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',marginTop:3,  marginLeft:1,marginRight:1 }}>
-            <IconButton onClick={() => handleColorChangeClothes('prev')}>
+            <IconButton onClick={() => handleColorChangeHoodie('prev',"Hoodie")}>
               <ArrowBackIos   />
             </IconButton>
             <Box sx={{ display: 'flex', gap:   2 }}>
               {renderColorRow(colorIndexClothes,'Hoodie')}
             </Box>
-            <IconButton onClick={() => handleColorChangeClothes('next')}>
+            <IconButton onClick={() => handleColorChangeHoodie('next',"Hoodie")}>
               <ArrowForwardIos   />
             </IconButton>
           </Box>
@@ -311,7 +332,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
                 color: '#ffffff',
               }}
             >
-              Clothes
+              Frame
             </Typography>
             
           </Link>

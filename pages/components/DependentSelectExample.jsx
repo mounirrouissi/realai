@@ -23,7 +23,8 @@ const regions = [
     { id: '21', label: 'Kebili' },
     { id: '22', label: 'Gabes' },
     { id: '23', label: 'Médenine' },
-    { id: '24', label: 'Tataouine' }    
+    { id: '24', label: 'Tataouine' }    ,
+    { id: '25', label: 'Ben Arous' }    
   ];
   
   const cities = {
@@ -373,6 +374,64 @@ const regions = [
         { id: '259', label: 'Smar' },
         { id: '260', label: 'Tataouine Nord' },
         { id: '261', label: 'Tataouine Sud' },
+      ],
+      '25': [
+        {value: '262', label: 'Ben Arous'},
+        {value: '263', label: 'Bir El Bey'},
+        {value: '264', label: 'Bir El Kassaa'},
+        {value: '265', label: 'Borj Cedria'},
+        {value: '266', label: 'Bou Mhel El Bassatine'},
+        {value: '267', label: 'Boukornine'},
+        {value: '268', label: 'El Mourouj'},
+        {value: '269', label: 'El Yasminette'},
+        {
+          value: '270', label: 'Ezzahra'
+        },
+        {
+          value: '271', label: 'Fouchana'
+        },
+        {
+          value: '272', label: 'Hammam Chatt'
+        },
+        {
+          value: '273', label: 'Hammam Lif'
+        },
+        {
+          value: '274', label: 'Khelidia'
+        },
+        {
+          value: '275', label: 'Megrine'
+        },
+        {
+          value: '276', label: 'Mohamadia'
+        },
+        {
+          value: '277', label: 'Mornag'
+        },
+        {
+          value: '278', label: 'Mourouj  1'
+        },
+        {
+          value: '279', label: 'Mourouj  3'
+        },
+        {
+          value: '280', label: 'Mourouj  4'
+        },
+        {
+          value: '281', label: 'Mourouj  5'
+        },
+        {
+          value: '282', label: 'Mourouj  6'
+        },
+        {
+          value: '283', label: 'Naassen'
+        },
+        {
+          value: '284', label: 'Nouvelle Medina'
+        },
+        {
+          value: '285', label: 'Rades'
+        }
       ],
     // ... other regions with their cities
   };
