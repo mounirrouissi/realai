@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
-
+import useLocalStorage from '../../components/useLocalStorage'
 // import config from '../config/config';
 import state from '../../store';
 // import { download } from '../public/images';
@@ -71,10 +71,14 @@ const Customizer = () => {
   const [tshirtNumber, setTshirtNumber] = useState('1');
   const [tshirtSize, setTshirtSize] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
+  const [selectedType, setSelectedType] = useLocalStorage("selectedType");
 
   const [imageUrl,setImageUrl] = useState('');
 
   useEffect(() => {
+
+    if (selectedType)
+    setActiveFilterTab(selectedType)
     console.log("inside customizer "+ snap.color)
 
    setImageUrl(localStorage.getItem('imageUrl') )

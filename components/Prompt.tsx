@@ -49,7 +49,7 @@ function Prompt() {
   const [savedCounter, setSavedCounter] = useState<string | null>(null);
   const [savedDate, setSavedDate] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useLocalStorage("selectedColor");
-  const [selectedType, setSelectedType] = useLocalStorage("1024x1024");
+  const [selectedType, setSelectedType] = useLocalStorage("selectedType");
 const [counter, setCounter] = useLocalStorage('counter', 5);
 
 // Initialize state with value from localStorage or set to some default value
@@ -199,8 +199,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
     // Check if selectedColor is not empty
     console.log("selectedColor: ", snap.color);
-if (snap.color && selectedType !== 'Frame') {
-  prompt += `,  ${snap.color} flat  background`;
+if ( (selectedColor || snap.color) && ((selectedType || snap.type) !== 'Frame')) {
+  prompt += `, isolated in a  ${snap.color} background, the backgound should have a solid bigger portion of it in ${snap.color} colour,  graphic design `;
 }
 let size = "1024x1024";
 
@@ -221,10 +221,9 @@ if (selectedType == 'Frame') {
         body: JSON.stringify({ prompt: prompt,size : size }),
       });
       if (!res.ok) {
-        toast.error("Unable to process the request.", {
+        toast.error("Unable to process the request. Please try again.", {
           id: notification,
         });
-        throw new Error(`HTTP error! status: ${res.status}`);
        
       }
       prediction = await res.json();
@@ -235,6 +234,7 @@ if (selectedType == 'Frame') {
       });
       // console.error("Error during image generation:", error);
     }
+
     const image = prediction.data[0].url;
     console.log("image after generating: " + image)
     // upload image to cloudflare
@@ -252,7 +252,7 @@ if (selectedType == 'Frame') {
     if (
       !response.ok
     ) {
-      toast.error("Unable to process the request.", {
+      toast.error("Unable to process the request. Please try again", {
         id: notification,
       });
     } else {

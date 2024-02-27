@@ -22,7 +22,7 @@ const snap = useSnapshot(state); // Subscribe to state changes
 
  
  // Define the two categories of colors
- const HoodieColors = ["black", "#FFFFFF", "blue", "#D3D3D3", "brown", "#654321", "pink", "grey"];
+ const HoodieColors = ["black", "white", "blue", "#D3D3D3", "brown", "#654321", "pink", "grey"];
 const tshirtColors =  ["gray", "white", "black", "red", "blue", "green", "yellow", "pink", "purple", "orange", "brown", "navy", "teal", "maroon", "beige"];
 
 
