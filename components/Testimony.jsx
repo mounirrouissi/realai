@@ -13,7 +13,7 @@ const Testimony = () => {
         {/* Step 1 */}
         <div className="flex flex-col items-center bg-white text-gray-800 p-4 rounded-lg shadow-md transition-all hover:scale-105">
           <img
-            src="/images/IMG1.jpg"
+            src="/images/IMG1.png"
             alt="Step 1"
             className="w-50 h-80 mb-3"
           />
@@ -25,7 +25,7 @@ const Testimony = () => {
         {/* Step 2 */}
         <div className="flex flex-col items-center bg-white text-gray-800 p-4 rounded-lg shadow-md transition-all hover:scale-105">
           <img
-            src="/images/IMG1.jpg"
+            src="/images/IMG2.png"
             alt="Step 2"
             className="w-50 h-80 mb-3"
           />
@@ -37,7 +37,7 @@ const Testimony = () => {
         {/* Step 3 */}
         <div className="flex flex-col items-center bg-white text-gray-800 p-4 rounded-lg shadow-md transition-all hover:scale-105">
           <img
-            src="/images/IMG1.jpg"
+            src="/images/IMG3.jpg"
             alt="Step 3"
             className="w-50 h-80 mb-3"
           />
