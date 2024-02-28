@@ -48,53 +48,40 @@ function Prompt() {
 
   const [savedCounter, setSavedCounter] = useState<string | null>(null);
   const [savedDate, setSavedDate] = useState<string | null>(null);
-  const [selectedColor, setSelectedColor] = useLocalStorage("selectedColor");
-  const [selectedType, setSelectedType] = useLocalStorage("selectedType");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedType, setSelectedType] = useState("Tshirt");
+  // const [selectedType, setSelectedType] = useLocalStorage("selectedType");
 
   const [counter, setCounter] = useLocalStorage('counter', 5);
 
-
-
-useEffect(() => {
-setSelectedColor(selectedColor);
-setSelectedType(selectedType);
-const savedDate = window.localStorage.getItem('date');
-const savedCounter = window.localStorage.getItem('counter');
-const today = new Date().toISOString().split('T')[0]; // Get today's date without time
-
-console.log("saved date"+savedDate)
-console.log("today "+today)
-
-// Check if the saved date is different from today's date
-if (savedDate !== today) {
-  // Reset the counter to  10 and update the date in localStorage
-  window.localStorage.setItem('date', today);
-  window.localStorage.setItem('counter', '5');
-  setCounter(5);
-} else {
-  // Return the saved counter or  10 if there's no saved counter
-  const counterValue = savedCounter ? parseInt(savedCounter, 10) :  5; // Corrected base to  10
-  setCounter(counterValue);
-}
-}, []);
-
-
-useEffect(() => {
-  
-  const date = window.localStorage.getItem('date');
-  const savedCounter = window.localStorage.getItem('counter')
-  setSavedCounter(savedCounter)
-  setCounter(savedCounter? parseInt(savedCounter) : 5);
-  setSavedDate(date);
-}, []);
-// Update localStorage whenever the counter changes
   useEffect(() => {
-    console.log("counter =="+ counter)
-    if (counter) {
-      window.localStorage.setItem('counter', counter.toString());    }
-  }, [counter]);
-
-
+    const selectedTypeFromLS = window.localStorage.getItem("selectedType");
+    const selectedColorFromLS = window.localStorage.getItem("selectedColor");
+    setSelectedColor(selectedColorFromLS || "white");
+    setSelectedType(selectedTypeFromLS || "Tshirt");
+    const savedDate = window.localStorage.getItem('date');
+    const savedCounter = window.localStorage.getItem('counter');
+    const today = new Date().toISOString().split('T')[0]; // Get today's date without time
+   
+    console.log("saved date"+savedDate)
+    console.log("today "+today)
+   
+    // Check if the saved date is different from today's date
+    if (savedDate !== today) {
+       // Reset the counter to 5 and update the date in localStorage
+       window.localStorage.setItem('date', today);
+       window.localStorage.setItem('counter', 'E'); // E = 5
+       setCounter(5);
+    } else {
+       // Return the saved counter or 5 if there's no saved counter or if it's not within the range of 0 to 5
+       const counterValue = savedCounter ? savedCounter.charCodeAt(0) - 65 : 5; // Corrected base to 10
+       if (counterValue < 0 || counterValue > 5) {
+         setCounter(5);
+       } else {
+         setCounter(counterValue);
+       }
+    }
+   }, []);
 
 
 // Define your options for the dropdown menu
@@ -262,8 +249,9 @@ if (selectedType == 'Frame') {
        // const encryptedCounter = encryptCounter(newCounter);
 
         // setCounter(encryptedCounter);
-        window.localStorage.setItem('counter', newCounter.toString());;
-        console.log('new counter ' + newCounter);
+        const charValue = String.fromCharCode(newCounter + 65); // A = 65, B = 66, ..., E = 69
+        window.localStorage.setItem('counter', charValue);
+                console.log('new counter ' + newCounter);
       }
       
            localStorage.setItem('imageUrl', `https://production.print.mounirrouissi2.workers.dev/${keyPart}`);

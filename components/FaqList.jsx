@@ -62,12 +62,12 @@ const FaqItem = ({ question, answer }) => {
             <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4">
         <div class="text-center">
           <p class="text-sm">
-            Copyright &copy; 2024 
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:underline"> REAL AI </span> 
-            
+            Copyright &copy; 2024
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:underline"> REAL AI </span>
+
             Co., Ltd. All Rights Reserved.
-        
-            Design: <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">Tunis</a>
+
+            Design: <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">Tunis</a>. for more info: 50695820
           </p>
         </div>
             </div>
