@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { FaInstagram, FaTiktok } from 'react-icons/fa';
 
 
 
@@ -59,7 +60,7 @@ const FaqItem = ({ question, answer }) => {
         
                   <footer class="bg-gray-800 text-white p-4">
          <div class="max-w-screen-xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
         <div class="text-center">
           <p class="text-sm">
             Copyright &copy; 2024
@@ -69,6 +70,17 @@ const FaqItem = ({ question, answer }) => {
 
             Design: <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">Tunis</a>. for more info: 50695820
           </p>
+        </div>
+              <div class="text-center">
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+                  <FaTiktok />
+                </a>
+              </div>
+
+        <div class="text-center">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <FaInstagram/>
+          </a>
         </div>
             </div>
          </div>
