@@ -17,9 +17,9 @@ const Testimony = () => {
             alt="Step 1"
             className="w-50 h-80 mb-3"
           />
-          <p className="text-xl font-semibold">Step 1: Choose a feature</p>
+          <p className="text-xl font-semibold">Step 1: Enter the details</p>
           <p className="text-center">
-            Select the feature you want to use from the main menu.
+            Prompt && Select the feature you want to use from the main menu.
           </p>
         </div>
         {/* Step 2 */}
@@ -29,7 +29,7 @@ const Testimony = () => {
             alt="Step 2"
             className="w-50 h-80 mb-3"
           />
-          <p className="text-xl font-semibold">Step 2: Enter your details</p>
+          <p className="text-xl font-semibold">Step 2: Review & Order</p>
           <p className="text-center">
             Fill in the required fields with your information.
           </p>
@@ -41,9 +41,11 @@ const Testimony = () => {
             alt="Step 3"
             className="w-50 h-80 mb-3"
           />
-          <p className="text-xl font-semibold">Step 3: Review and submit</p>
+          <p className="text-xl font-semibold">Step 3: Final Result 
+🎉
+</p>
           <p className="text-center">
-            Review your inputs and submit to see the results.
+            Recieve your order and to see the results.
           </p>
         </div>
       </div>
