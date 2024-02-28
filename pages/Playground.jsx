@@ -8,11 +8,12 @@ import React, { useEffect, useState } from 'react';
 
 
 export default function HomePage() {
+  const [type, setType] = useState('Tshirt');
 
   return (
     <Layout>
-      <Canvas />
-      <Customizer  />
+      <Canvas type={type}  setType={setType} />
+      <Customizer type={type}  setType={setType} />
     </Layout>
   );
 }

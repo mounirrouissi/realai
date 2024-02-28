@@ -33,7 +33,7 @@ const supabase = createClient("https://ygoywdggbolrtwuducox.supabase.co",
 
 
 
-const Customizer = () => {
+const Customizer = ({type,setType}) => {
   
   const snap = useSnapshot(state);
   const router = useRouter()
@@ -428,6 +428,7 @@ const handleAlertMessaage = () =>{
   const handleActiveFilterTab = (tabName) => {
     console.log("tabName: " + tabName);
     state["type"] = tabName
+    setType(tabName)
    setActiveFilterTab(tabName);
   };
 

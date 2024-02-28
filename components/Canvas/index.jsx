@@ -14,18 +14,17 @@ import  Hoodie  from './Hoodie';
 import { isMobile } from './../../config/helpers';
 import { useEffect, useState } from 'react';
 
-const CanvasModel = ({color}) => {
-  const snap = useSnapshot(state);
-   const [type, setType] = useState('Tshirt');
+const CanvasModel = ({type,setType}) => {
+ //  const [type, setType] = useState('Tshirt');
 
 useEffect(() => {
-   setType(localStorage.getItem('selectedType'));
-   
 
-  console.log("color="+color)
+  console.log("type "+localStorage.getItem('selectedType'))
+   setType(localStorage.getItem('selectedType'));
 })
 
 useEffect(() => {
+  console.log("type="+type)
   state["type"] = type
 },[type])
 
