@@ -66,7 +66,8 @@ return savedCounter ? parseInt(savedCounter) :   5;
 
 
 useEffect(() => {
-
+setSelectedColor(selectedColor);
+setSelectedType(selectedType);
 const savedDate = window.localStorage.getItem('date');
 const savedCounter = window.localStorage.getItem('counter');
 const today = new Date().toISOString().split('T')[0]; // Get today's date without time
@@ -89,6 +90,7 @@ if (savedDate !== today) {
 
 
 useEffect(() => {
+  
   const date = window.localStorage.getItem('date');
   const savedCounter = window.localStorage.getItem('counter')
   setSavedCounter(savedCounter)
@@ -199,8 +201,11 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
     // Check if selectedColor is not empty
     console.log("selectedColor: ", snap.color);
-if ( (selectedColor || snap.color) && ((selectedType || snap.type) !== 'Frame')) {
-  prompt += `, isolated in a  ${snap.color} background, the backgound should have a solid bigger portion of it in ${snap.color} colour,  graphic design `;
+    const selectedColorWithoutQuotes = selectedColor.replace(/^"*|"*$/g, '');
+
+
+if ( (selectedColorWithoutQuotes ) && ((selectedType || snap.type) !== 'Frame')) {
+  prompt += `, isolated in a  ${selectedColorWithoutQuotes } background, the backgound should have a solid bigger portion of it in ${selectedColorWithoutQuotes} colour,  graphic design `;
 }
 let size = "1024x1024";
 
