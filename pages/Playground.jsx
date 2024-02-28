@@ -10,9 +10,16 @@ import React, { useEffect, useState } from 'react';
 export default function HomePage() {
   const [type, setType] = useState('Tshirt');
 
+  useEffect(() => {
+
+    console.log("type "+localStorage.getItem('selectedType'))
+     setType(localStorage.getItem('selectedType'));
+  },[])
+
+
   return (
     <Layout>
-      <Canvas type={type}  setType={setType} />
+      <Canvas type={type}   />
       <Customizer type={type}  setType={setType} />
     </Layout>
   );

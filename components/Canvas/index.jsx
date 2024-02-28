@@ -17,16 +17,12 @@ import { useEffect, useState } from 'react';
 const CanvasModel = ({type,setType}) => {
  //  const [type, setType] = useState('Tshirt');
 
-useEffect(() => {
 
-  console.log("type "+localStorage.getItem('selectedType'))
-   setType(localStorage.getItem('selectedType'));
-})
 
-useEffect(() => {
-  console.log("type="+type)
-  state["type"] = type
-},[type])
+// useEffect(() => {
+//   console.log("type="+type)
+//   state["type"] = type
+// },[type])
 
 
 
@@ -44,7 +40,7 @@ useEffect(() => {
        <CameraRig>
         {/* <Backdrop />  */}
          {/* <Center> */}
-           { state.type === "Tshirt" ? <Shirt   /> : (state.type === "Hoodie" ? <Hoodie/> : <Frame/>)} 
+           { type === "Tshirt" ? <Shirt   /> : (type === "Hoodie" ? <Hoodie/> : <Frame/>)} 
          {/* </Center> */}
       </CameraRig>
     </Canvas>

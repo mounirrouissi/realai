@@ -50,18 +50,8 @@ function Prompt() {
   const [savedDate, setSavedDate] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useLocalStorage("selectedColor");
   const [selectedType, setSelectedType] = useLocalStorage("selectedType");
-const [counter, setCounter] = useLocalStorage('counter', 5);
 
-// Initialize state with value from localStorage or set to some default value
-// Initialize state with value from localStorage or set to some default value
-/* const [counter, setCounter] = useState<number | null>(() => {
-// Try to get the counter value from localStorage
-let savedCounter: string | null = null; // Initialize with null
-if (typeof window !== "undefined")  
- savedCounter = window.localStorage.getItem('counter');
-// If there's a saved counter, parse it to an integer; otherwise, use   5 as the default
-return savedCounter ? parseInt(savedCounter) :   5;
-}); */
+  const [counter, setCounter] = useLocalStorage('counter', 5);
 
 
 
@@ -105,13 +95,7 @@ useEffect(() => {
   }, [counter]);
 
 
-  const  userScrollPosition =()=>{
- 
-    
 
-
-  }
-// ... rest of your component
 
 // Define your options for the dropdown menu
 const options = [
