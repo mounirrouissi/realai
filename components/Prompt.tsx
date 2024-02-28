@@ -202,7 +202,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
 
 if ( (selectedColorWithoutQuotes ) && ((selectedType || snap.type) !== 'Frame')) {
-  prompt += `, the backgound should  stricly be in ${selectedColorWithoutQuotes} colour,  graphic portrait design `;
+  prompt += `, the backgound should  stricly be in ${selectedColorWithoutQuotes} colour,  graphic design `;
 }
 let size = "1024x1024";
 
