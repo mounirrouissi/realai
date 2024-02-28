@@ -54,6 +54,9 @@ function Prompt() {
 
   const [counter, setCounter] = useLocalStorage('counter', 5);
 
+
+
+
   useEffect(() => {
     const selectedTypeFromLS = window.localStorage.getItem("selectedType");
     const selectedColorFromLS = window.localStorage.getItem("selectedColor");
@@ -83,6 +86,29 @@ function Prompt() {
     }
    }, []);
 
+
+   useEffect(() => {
+    const date = window.localStorage.getItem('date');
+    const savedCounter = window.localStorage.getItem('counter');
+ const counterValue = savedCounter ? charToNumber(savedCounter) : 5;
+ setCounter(counterValue);
+    setSavedCounter(savedCounter)
+    // setCounter(savedCounter ? savedCounter.charCodeAt(0) - 65 : 5);
+    setSavedDate(date);
+   }, []);
+   
+function charToNumber(char:any) {
+  return char.charCodeAt(0) - 65; // A = 65, B = 66, ..., Z = 90
+ }
+   // Update localStorage whenever the counter changes
+   useEffect(() => {
+    console.log("counter =="+ counter)
+    if (counter) {
+       // Convert the counter value to a character before storing
+       const charValue = String.fromCharCode(counter + 65); // A = 65, B = 66, ..., E = 69
+       window.localStorage.setItem('counter', charValue);
+    }
+   }, [counter]);
 
 // Define your options for the dropdown menu
 const options = [
@@ -168,7 +194,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     const label = imageStyleObject ;
  
     console.log("imageStyleObject "+ label)
-        prompt = `${prompt}  ${label ? ',' + label + ' style' : ''}  `;
+        prompt = `${prompt}  ${label ? ',' + label + ' style vibe' : ''}  `;
 
     // Check if selectedColor is not empty
     console.log("selectedColor: ", snap.color);
@@ -176,7 +202,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
 
 if ( (selectedColorWithoutQuotes ) && ((selectedType || snap.type) !== 'Frame')) {
-  prompt += `, isolated in a  ${selectedColorWithoutQuotes } background, the backgound should have a solid bigger portion of it in ${selectedColorWithoutQuotes} colour,  graphic design `;
+  prompt += `, the backgound should  stricly be in ${selectedColorWithoutQuotes} colour,  graphic portrait design `;
 }
 let size = "1024x1024";
 

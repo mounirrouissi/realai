@@ -9,7 +9,7 @@ export async function POST(request: NextRequest,res:any) {
   const predictionResponse = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${apiKey}`,
+      "Authorization": `Bearer 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`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
