@@ -58,10 +58,10 @@ const FaqItem = ({ question, answer }) => {
             ))}
                   </div>
         
-                  <footer class="bg-gray-800 text-white p-4">
+                  <footer class="flex items-center justify-center bg-gray-800 text-white p-4">
          <div class="max-w-screen-xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-        <div class="text-center">
+            <div class=" items-center justify-center gap-4">
+        <div class="text-center col-span-2 md:col-span-1">
           <p class="text-sm">
             Copyright &copy; 2024
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:underline"> REAL AI </span>
@@ -71,17 +71,19 @@ const FaqItem = ({ question, answer }) => {
             Design: <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">Tunis</a>. for more info: 50695820
           </p>
         </div>
-              <div class="text-center">
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
-                  <FaTiktok />
-                </a>
+              <div className="flex gap-5 justify-center">
+                <div class="text-center ">
+                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+                    <FaTiktok />
+                  </a>
+                </div>
+                
+                        <div class="text-center ">
+                          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                            <FaInstagram/>
+                          </a>
+                        </div>
               </div>
-
-        <div class="text-center">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-            <FaInstagram/>
-          </a>
-        </div>
             </div>
          </div>
         </footer>
