@@ -8,7 +8,7 @@ interface Data {
 export  async function POST(req: NextRequest, res: NextApiResponse<Data>) {
 
   console.log("uploading data to cloudflare inside post");
-  const { image,prompt } = await req.json();
+  const { image,prompt,selectedColor } = await req.json();
   //const blob = base64ToBlob(image, "image/png");
 
 
@@ -33,11 +33,13 @@ export  async function POST(req: NextRequest, res: NextApiResponse<Data>) {
 
 // const key = generateRandomString();
 let key =  prompt + '_' + Date.now();
+const key2 = key +","+ selectedColor
+
 // Remove special characters
-key = key.replace(/[^\w\s]/gi, ''); 
+key = key2.replace(/[^\w\s]/gi, ''); 
 
 // Replace spaces with underscores
-key = key.replace(/\s/g, '_');
+key = key2.replace(/\s/g, '_');
   console.log("key: " + key)
 
 

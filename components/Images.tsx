@@ -121,8 +121,11 @@ function Images() {
     // console.log("date from upload 2 pass= " + `https://production.print.mounirrouissi2.workers.dev/${keyPart}`);
     // decrease counter
       // setCounter((prevCounter : number | null) => prevCounter !== null && prevCounter > 0 ? prevCounter - 1 : prevCounter); 
-      
-      
+      const colorName= imageItem.name.substring(imageItem.name.lastIndexOf(",")+1);
+
+      console.log("color name from image name: " + colorName);
+        localStorage.setItem('selectedColor', colorName);
+
            localStorage.setItem('imageUrl', `https://production.print.mounirrouissi2.workers.dev/${imageItem.name}`);
       // state.logoDecal = `https://production.print.mounirrouissi2.workers.dev/${keyPart}`;
       router.push(`/Playground`);

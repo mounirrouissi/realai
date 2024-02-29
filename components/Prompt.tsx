@@ -52,7 +52,7 @@ function Prompt() {
   const [selectedType, setSelectedType] = useState("Tshirt");
   // const [selectedType, setSelectedType] = useLocalStorage("selectedType");
 
-  const [counter, setCounter] = useLocalStorage('counter', 5);
+  const [counter, setCounter] = useLocalStorage('counter', 3);
 
 
 
@@ -77,9 +77,9 @@ function Prompt() {
        setCounter(5);
     } else {
        // Return the saved counter or 5 if there's no saved counter or if it's not within the range of 0 to 5
-       const counterValue = savedCounter ? savedCounter.charCodeAt(0) - 65 : 5; // Corrected base to 10
-       if (counterValue < 0 || counterValue > 5) {
-         setCounter(5);
+       const counterValue = savedCounter ? savedCounter.charCodeAt(0) - 65 : 3; // Corrected base to 10
+       if (counterValue < 0 || counterValue > 3) {
+         setCounter(3);
        } else {
          setCounter(counterValue);
        }
@@ -90,7 +90,7 @@ function Prompt() {
    useEffect(() => {
     const date = window.localStorage.getItem('date');
     const savedCounter = window.localStorage.getItem('counter');
- const counterValue = savedCounter ? charToNumber(savedCounter) : 5;
+ const counterValue = savedCounter ? charToNumber(savedCounter) : 3;
  setCounter(counterValue);
     setSavedCounter(savedCounter)
     // setCounter(savedCounter ? savedCounter.charCodeAt(0) - 65 : 5);
@@ -246,7 +246,7 @@ if (selectedType == 'Frame') {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ image, prompt }),
+      body: JSON.stringify({ image, prompt,selectedColor }),
     });
     console.log("response froom upload: " + response)
     if (!response.ok) {
@@ -388,7 +388,8 @@ if (selectedType == 'Frame') {
          ✨ Generate
         </button>
         <button
-       className={`rounded-xl border-none p-4 font-bold text-white shadow-lg transition-all duration-150 hover:-translate-y-1 hover:scale-105 ${counter!! <= 3 ? 'bg-red-500' : 'bg-green-500'}`}
+      //  className={`rounded-xl border-none p-4 font-bold text-white shadow-lg transition-all duration-150 hover:-translate-y-1 hover:scale-105 ${counter!! <= 3 ? 'bg-red-500' : 'bg-green-500'}`}
+       className={`rounded-xl border-none p-4 font-bold text-white shadow-lg transition-all duration-150 hover:-translate-y-1 hover:scale-105 bg-green-500 `}
        type="button"
        // onClick={handleNewSuggestion}
      >

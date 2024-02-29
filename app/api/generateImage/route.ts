@@ -4,13 +4,13 @@ export async function POST(request: NextRequest,res:any) {
   const startTime = performance.now();
   console.log("counter in post = "+counter)
   const apiKey = process.env.OPENAI_API_KEY;
-let model;
-  if (counter > 2 || size === "1024x1792") 
-model ="dall-e-3"
-else{
-  model ="dall-e-2"
+let model ='dall-e-3'
+//   if (counter > 2 || size === "1024x1792") 
+// model ="dall-e-3"
+// else{
+//   model ="dall-e-2"
 
-}
+// }
 
 
 console.log("model used" + model)
