@@ -42,7 +42,7 @@ function ImageItem({ index, img, handleUsePromptBtn }: ImageItemProp) {
           onClick={() => handleUsePromptBtn(prompt || "",img)}
           className="rounded-full bg-primary bg-opacity-100 px-4 py-2 text-sm text-white opacity-100 drop-shadow transition-all duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
         >
-          Use Prompt
+          Use Image
         </button>
       </div>
       <Image
