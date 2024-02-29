@@ -90,15 +90,42 @@ function Images() {
 
   // console.log("images: retirieved from R2 using SWR ", images);
 
-  const handleUsePromptBtn = (prompt: string, imageItem: ImageType) => {
+  const handleUsePromptBtn = async(prompt: string, imageItem: ImageType) => {
     setInput(prompt);
     //  window.open(imageItem.url);
      console.log("Image before : " + JSON.stringify(imageItem.url))
-      setInput(prompt);
-   // toast.success("image used!" + prompt) ;
-    // localStorage.setItem('imageUrl', `https://production.print.mounirrouissi2.workers.dev/${keyPart}`);
-    
-    // router.push(`/Playground`);
+     console.log("Image before : " + JSON.stringify(imageItem))
+     const response = await fetch('/api/getImage/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const blob = await response.blob();
+
+    const objectURL = URL.createObjectURL(blob);
+
+
+
+
+
+    // if (!response.ok) {
+    //   throw new Error('Failed to upload image');
+    // }
+   
+    // // Fix indexing error
+    // // const text = await response.text();
+  
+    //  const keyPart = text.split(' ')[1];
+    // console.log("date from upload= " + keyPart);
+    // console.log("date from upload 2 pass= " + `https://production.print.mounirrouissi2.workers.dev/${keyPart}`);
+    // decrease counter
+      // setCounter((prevCounter : number | null) => prevCounter !== null && prevCounter > 0 ? prevCounter - 1 : prevCounter); 
+      
+      
+           localStorage.setItem('imageUrl', `https://production.print.mounirrouissi2.workers.dev/${imageItem.name}`);
+      // state.logoDecal = `https://production.print.mounirrouissi2.workers.dev/${keyPart}`;
+      router.push(`/Playground`);
       // router.push(`/Home?imageUrl=${encodeURIComponent("https://production.print.mounirrouissi2.workers.dev/4hearts_1706871506571")}`);
     // // router.push(`/Home?imageUrl=${encodeURIComponent("https%3A%2F%2Freplicate.delivery%2Fpbxt%2FV8FxclEERIbEHV31V6M9sQz0qjIai9f7XpAKIGwgzYbuMqLJA%2Fout-0.png")}`);
     

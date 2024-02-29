@@ -23,11 +23,10 @@ const Shirt = () => {
 
   const [color, setColor] = useState('#fff');
 
-  
   useEffect(() => {
     // Read color from localStorage
     const savedColor = localStorage.getItem('selectedColor');
-
+    console.log("image in tshirt" + image)
     console.log("saved color "+savedColor)
     if (savedColor) {
       setColor(savedColor);
@@ -36,7 +35,7 @@ const Shirt = () => {
   }, []);
 
   
- 
+
   useFrame((state, delta) => {
     
     easing.dampC(materials.lambert1.color, color, 0.25, delta);

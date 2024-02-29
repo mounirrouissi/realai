@@ -32,8 +32,12 @@ export  async function POST(req: NextRequest, res: NextApiResponse<Data>) {
   }
 
 // const key = generateRandomString();
-const key =  prompt + '_' + Date.now();
+let key =  prompt + '_' + Date.now();
+// Remove special characters
+key = key.replace(/[^\w\s]/gi, ''); 
 
+// Replace spaces with underscores
+key = key.replace(/\s/g, '_');
   console.log("key: " + key)
 
 
