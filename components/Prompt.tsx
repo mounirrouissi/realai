@@ -213,6 +213,7 @@ if (selectedType == 'Frame') {
 }
     
     console.log("prompt: ", prompt , "size = "+ size);
+
     // generate image
     try {
       const res = await fetch("/api/generateImage/", {
@@ -220,7 +221,7 @@ if (selectedType == 'Frame') {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: prompt,size : size }),
+        body: JSON.stringify({ prompt: prompt,size : size,counter:counter }),
       });
       if (!res.ok) {
         toast.error("Unable to process the request. Please try again.", {

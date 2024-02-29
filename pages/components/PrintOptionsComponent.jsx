@@ -57,6 +57,15 @@ const colorNameMapping = {
   };
 
 
+ const handleFameSelected = (type) => {
+  state.selectedType = type; // Update the state directly
+  localStorage.setItem('selectedType',type);
+
+  state.type = type; // Update the state directly
+ // setColor(color);
+ router.push(`/Home`);
+ setLoading(true)
+ }
  // Function to handle color change with arrows for Hoodie (Hoodie)
 const handleColorChangeHoodie = (direction) => {
   const newIndex = direction === 'next' ? colorIndexHoodie +  1 : colorIndexHoodie -  1;
@@ -269,7 +278,7 @@ const renderColorRow = (startIndex, type) => {
       
          {/* frame Box */}
         <Box
-          onClick={() => {handleFameSelected()}}
+          onClick={() => {handleFameSelected("Frame")}}
 
           sx={{
             display: 'flex',

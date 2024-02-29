@@ -76,9 +76,10 @@ const Customizer = ({type,setType}) => {
   const [imageUrl,setImageUrl] = useState('');
 
   useEffect(() => {
-
-    if (selectedType)
-    setActiveFilterTab(selectedType)
+ console.log('activetype incustom '+ selectedType)
+ console.log('activetype incustom '+ type)
+    if (type)
+    setActiveFilterTab(type)
     console.log("inside customizer "+ snap.color)
 
    setImageUrl(localStorage.getItem('imageUrl') )
