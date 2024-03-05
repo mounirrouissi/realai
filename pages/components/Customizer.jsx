@@ -202,7 +202,7 @@ const handleDeleteOrder = (index, orderType,orderNumber) => {
   } else if (orderType === "Hoodie") {
     productPrice = 65;
   } else {
-    productPrice = 44; // Assuming this is the price for other items
+    productPrice = 49; // Assuming this is the price for other items
   }
 
   console.log("order number to delete:" + orderNumber)

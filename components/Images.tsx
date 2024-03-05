@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import fetchImages from "../lib/fetchImages";
 import { AiOutlineToTop } from "react-icons/ai";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import { fetchImagesR2 } from "@/lib/worker";
 import { useRouter } from "next/navigation";
 import Feedback from '../components/footer/Feedback'
+import Loading from "./Loading";
 
 type ImageType = {
   name: string;
@@ -37,7 +38,7 @@ function ImageItem({ index, img, handleUsePromptBtn }: ImageItemProp) {
   `}
     >
       <div className="absolute z-50 flex h-full w-full flex-col items-center justify-center rounded-xl bg-white opacity-0 transition-opacity duration-200 hover:opacity-80">
-        <p className="p-5 text-center text-lg font-light">{prompt}</p>
+        {/* <p className="p-5 text-center text-lg font-light">{prompt}</p> */}
         <button
           onClick={() => handleUsePromptBtn(prompt || "",img)}
           className="rounded-full bg-primary bg-opacity-100 px-4 py-2 text-sm text-white opacity-100 drop-shadow transition-all duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
@@ -59,7 +60,9 @@ function ImageItem({ index, img, handleUsePromptBtn }: ImageItemProp) {
   );
 }
 
-function Images() {
+function Images({category}) {
+  const [startIndex, setStartIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [isOpenFeedbak, setOpenFeedback] = useState(false);
   const [scrollButton, setScrollButton] = useState(false);
   const setInput = useSetRecoilState(promptInputState);
@@ -79,20 +82,32 @@ function Images() {
     }
   };
 
+
+
+// Fetcher 
+function fetcher() {
+  return fetch(`/api/getImages?category=${category}`).then((res) => {console.log("res=="+JSON.stringify(res));return res.json() } ) // Pass number here
+}
+
+
   const {
     data: images,
     isLoading,
     mutate: refreshImages,
     isValidating,
-  } = useSWR("/api/getImages", fetchImages, {
+   } =  useSWR(`/api/getImages?category=${category}`, fetcher,{
+  // conso
     revalidateOnFocus: false,
-  });
-
+    revalidateOnReconnect: true,
+    revalidateOnMount: true,
+   });
   // console.log("images: retirieved from R2 using SWR ", images);
 
   const handleUsePromptBtn = async(prompt: string, imageItem: ImageType) => {
     setInput(prompt);
     //  window.open(imageItem.url);
+    
+    setLoading(true);
      console.log("Image before : " + JSON.stringify(imageItem.url))
      console.log("Image before : " + JSON.stringify(imageItem))
      const response = await fetch('/api/getImage/', {
@@ -139,9 +154,25 @@ function Images() {
     setOpenFeedback(!isOpenFeedbak);
   }
 
-  return (
 
+// Add this function to handle the "Load More" button click
+// Add this function to handle the "Load More" button click
+const handleLoadMore = () => {
+  setStartIndex(prevIndex => {
+     const newIndex = prevIndex + 10;
+     console.log('Updated startIndex:', newIndex);
+     mutate(`/api/getImages?startIndex=${newIndex}`);
+     return newIndex;
+  });
+  
+ };
+
+
+  return (
+    
     <div className="">
+      {loading ? <Loading/>: (
+        <>
         <div className="flex flex-col items-center bg-primary-200  text-white p-5">
             <h1 className="text-2xl">Explore Ideas</h1>
             <hr className="w-1/2 border-pink-500 mt-2" />
@@ -192,6 +223,14 @@ function Images() {
       
       </div>
     {isOpenFeedbak && <Feedback isOpenFeedbak={isOpenFeedbak} setOpenFeedback={ setOpenFeedback} /> }
+    {/* <button
+      onClick={() =>handleLoadMore()}
+      className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Load More
+    </button> */}
+    </>
+      )}
     </div>
   );
 }

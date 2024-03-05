@@ -71,7 +71,7 @@ const FaqItem = ({ question, answer }) => {
             Design: <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">Tunis</a>. for more info: 50695820
           </p>
         </div>
-              <div className="flex gap-5 justify-center">
+              {/* <div className="flex gap-5 justify-center">
                 <div class="text-center ">
                   <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
                     <FaTiktok />
@@ -83,7 +83,7 @@ const FaqItem = ({ question, answer }) => {
                             <FaInstagram/>
                           </a>
                         </div>
-              </div>
+              </div> */}
             </div>
          </div>
         </footer>

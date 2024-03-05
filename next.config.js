@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       "production.print.mounirrouissi2.workers.dev",
       "replicate.delivery",
+      "pub-1632a2ecf2714467a7496a139db56385.r2.dev"
     ],
   },
 

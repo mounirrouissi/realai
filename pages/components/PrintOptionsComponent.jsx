@@ -114,8 +114,8 @@ const renderColorRow = (startIndex, type) => {
     <div className="">
     <Header />
   { loading ? <Loading/> : 
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap:   4, p:   5 }}>
        
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap:   4, p:   5, flex: '0 1 auto' }}>
         {/* tshirt Box */}
         <Box
           sx={{
@@ -275,8 +275,12 @@ const renderColorRow = (startIndex, type) => {
             </IconButton>
           </Box>
         </Box>
+
+
+
+
       
-         {/* frame Box */}
+         {/* Sticker Box */}
         <Box
           onClick={() => {handleFameSelected("Frame")}}
 
@@ -285,8 +289,89 @@ const renderColorRow = (startIndex, type) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '70vh', // Adjust the height as needed
-            width:'50vh',
+            height: '75vh', // Adjust the height as needed
+            width:'55vh',
+            m:   1,
+            p:   1,
+            backgroundColor: '#f3f4f6',
+            borderRadius: '1rem',
+            overflow: 'hidden',
+            boxShadow: '0   10px   15px -3px rgba(0,   0,   0,   0.1),   0   4px   6px -2px rgba(0,   0,   0,   0.05)',
+            transition: 'transform   0.5s',
+            '&:hover': {
+              transform: 'scale(0.95)',
+            },
+          }}
+        >
+          <Link
+      
+            onClick={() => {state.intro = false}} // Make sure 'state' is defined in your component or context
+            sx={{
+              flex: '1   0 auto',
+              width: '100%', // Ensure the link takes the full width of the parent Box
+              position: 'relative',
+            }}
+          >
+            <img src={'./images/frame.jpg'} alt="Hoodie Image" style={{ width: '100%', objectFit: 'cover' }} />
+            <Box
+              sx={{
+                position: 'absolute',
+                top:   0,
+                bottom:   0,
+                left:   0,
+                right:   0,
+                background: 'linear-gradient(to top, rgba(0,   0,   0,   0.7), transparent)',
+                transition: 'background   0.5s',
+              }}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                position: 'absolute',
+                bottom:   0,
+                width: '100%',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: '1.25rem',
+                p:   0.5,
+                color: '#ffffff',
+              }}
+            >
+              Sticker
+            </Typography>
+            
+          </Link>
+          <Typography variant="subtitle1" sx={{ marginTop:   2, textAlign: 'center' }}>
+            
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:   2 }}>
+       
+          </Box>
+          {/* <Typography variant="subtitle1" sx={{ marginTop:   2, textAlign: 'center' }}>
+            Choose a color
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop:   2 }}>
+            <IconButton onClick={() => handleColorChangeHoodie('prev')}>
+              <ArrowBackIos />
+            </IconButton>
+            <Box sx={{ display: 'flex', gap:   2 }}>
+              {renderColorRow(colorIndexHoodie,'Frame')}
+            </Box>
+            <IconButton onClick={() => handleColorChangeHoodie('next')}>
+              <ArrowForwardIos />
+            </IconButton>
+          </Box> */}
+        </Box>             {/* frame Box */}
+        <Box
+          onClick={() => {handleFameSelected("Frame")}}
+
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '75vh', // Adjust the height as needed
+            width:'55vh',
             m:   1,
             p:   1,
             backgroundColor: '#f3f4f6',
@@ -357,7 +442,12 @@ const renderColorRow = (startIndex, type) => {
               <ArrowForwardIos />
             </IconButton>
           </Box> */}
-        </Box>
+        </Box>     
+        
+        
+        
+        
+     
       </Box>}
     </div>
   );

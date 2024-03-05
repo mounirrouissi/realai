@@ -39,9 +39,9 @@ const CanvasModel = ({type,setType}) => {
 
        <CameraRig>
         {/* <Backdrop />  */}
-         {/* <Center> */}
+         <Center>
            { type === "Tshirt" ? <Shirt   /> : (type === "Hoodie" ? <Hoodie/> : <Frame/>)} 
-         {/* </Center> */}
+         </Center>
       </CameraRig>
     </Canvas>
 )}

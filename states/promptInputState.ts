@@ -10,3 +10,4 @@ export const colorState = atom({
     key: "colorState",
     default: "#AAAAAA",
 });
+

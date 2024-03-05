@@ -74,7 +74,7 @@ function Prompt() {
        // Reset the counter to 5 and update the date in localStorage
        window.localStorage.setItem('date', today);
        window.localStorage.setItem('counter', 'E'); // E = 5
-       setCounter(5);
+       setCounter(3);
     } else {
        // Return the saved counter or 5 if there's no saved counter or if it's not within the range of 0 to 5
        const counterValue = savedCounter ? savedCounter.charCodeAt(0) - 65 : 3; // Corrected base to 10
@@ -202,7 +202,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
 
 if ( (selectedColorWithoutQuotes ) && ((selectedType || snap.type) !== 'Frame')) {
-  prompt += `, the backgound should  stricly be in ${selectedColorWithoutQuotes} colour,  graphic design `;
+  // prompt += `An illustration. Render the scene against a backdrop of a clear ,solid  ${selectedColor} backgound. Avoid any framing elements or clothing or canvas, the face  should not be clear, unclear or covered or blurry or blank eyes,  add appropriate word to the design if possible , the character should has a side or back angle view. `;
+  prompt = `image of ${prompt} ${label ? ',' + label + ' style vibe' : ''}  , Render the scene against a backdrop of a clear, solid ${selectedColor}  background. Avoid any framing elements,no clothing,no canvas.`
 }
 let size = "1024x1024";
 
@@ -303,7 +304,7 @@ if (selectedType == 'Frame') {
     if (counter === 0)
       return (  
         <p className="animate-flip-down pt-2 pl-2 font-bold text-white drop-shadow-md animate-normal animate-duration-500 animate-once animate-ease-in-out">
-          ✨ Thank you for using REAL AI. Come back tomorrow for more 🪙
+          ✨ Thank you for using REAL AI. Come back tomorrow for more 🪙. meanwhile u can use the images in the explore section
           <span className="select-all font-light font-bold"></span>
         </p>
       );

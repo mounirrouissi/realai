@@ -4,13 +4,20 @@ import Testimony from "@/components/Testimony";
 import Prompt from "@/components/Prompt";
 import Header from "@/components/Header";
 import PreHeader from "@/components/PreHeader";
+import Categories from "@/components/Categories";
+
+type SearchParams={
+  category?:string;
+}
+
+type Props ={
+  searchParams:SearchParams;
+}
+
+export default function Home( {searchParams:{category}}:Props) {
 
 
-
-export default function Home() {
-
-
-
+console.log("Search params: ", category);
 
   return (
     <main className="mx-0">
@@ -19,7 +26,8 @@ export default function Home() {
                 <Header />
 
 <Prompt  />
-      <Images />
+<Categories />
+      <Images category={category}/>
       <Testimony />
       <FaqList/>
     </main>
