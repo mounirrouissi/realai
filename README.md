@@ -21,4 +21,4 @@ To clone and run this project, you'll need the following:
 
 
 
-> If you need to find your Storage account access key: Go to Azure Portal > Your Storage account > Security + networking > Access key.
+
